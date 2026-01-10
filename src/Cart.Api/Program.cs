@@ -1,14 +1,19 @@
 using Cart.Api.Data;
+using Cart.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Cart API", Version = "v1" });
 });
+
+// Register application services
+builder.Services.AddScoped<IHelloService, HelloService>();
 
 // Configure SQLite
 var dbPath = builder.Configuration.GetValue<string>("Database:Path") ?? "cart.db";
@@ -54,11 +59,10 @@ app.UseCors();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// API endpoints
-app.MapGet("/api/hello", () => new { message = "Hello from Cart API" })
-   .WithName("Hello")
-   .WithOpenApi();
+// Map controllers
+app.MapControllers();
 
+// Health check endpoint (keep as minimal API)
 app.MapGet("/health", () => Results.Ok(new { status = "healthy" }))
    .WithName("Health")
    .WithOpenApi();
