@@ -1,0 +1,84 @@
+# IDEs and Editors
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs (IntelliJ, PyCharm, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# Claude AI
+.claude/
+*.claude-session
+.claude-cache/
+
+# Operating System Files
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+*~
+
+# Environment and Configuration
+.env
+.env.local
+.env.*.local
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary Files
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.cache
+
+# Dependencies (common patterns)
+node_modules/
+vendor/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Testing
+coverage/
+.nyc_output/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Package manager locks (uncomment if you want to ignore them)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+# poetry.lock
+# Pipfile.lock
