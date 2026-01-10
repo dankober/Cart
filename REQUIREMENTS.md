@@ -45,3 +45,97 @@ provide alternative ideas.
 - Should use one of the common UI frameworks that has an OK license for personal projects (MUI, Bootstrap, or something
   else I haven't heard of)
 - Should publish image to personal Docker registry... but I don't know how
+
+## Approved Tech Stack
+
+Based on requirements analysis, the following tech stack and patterns have been approved for implementation.
+
+### Backend Stack
+- **ASP.NET Core 8** (Web API)
+  - Minimal API or Controller-based REST endpoints
+  - Built-in OpenAPI/Swagger support with SwaggerUI
+- **Entity Framework Core** with SQLite provider
+  - Code-first migrations for schema management
+  - Auto-apply migrations on container startup via `db.Database.Migrate()`
+  - Migration history tracked in `__EFMigrationsHistory` table
+- **NuGet Packages:**
+  - `Microsoft.EntityFrameworkCore.Sqlite`
+  - `Microsoft.EntityFrameworkCore.Design`
+  - `Swashbuckle.AspNetCore`
+
+### Frontend Stack
+- **React 18+** with **Vite** (build tooling)
+- **Material-UI (MUI)** for component library
+- **React Router** for SPA routing
+- **Axios** for HTTP/REST API client
+- **React Context API** for global state management (cart, selected store)
+- **npm Packages:**
+  - `react`, `react-dom`, `react-router-dom`
+  - `@mui/material`, `@mui/icons-material`
+  - `@emotion/react`, `@emotion/styled` (MUI dependencies)
+  - `axios`
+  - `vite`, `@vitejs/plugin-react`
+
+### Architecture Patterns
+
+#### Backend:
+- **Repository Pattern** for data access abstraction
+- **Service Layer** for business logic
+- **DTOs (Data Transfer Objects)** for API contracts
+- **Dependency Injection** (built into ASP.NET Core)
+
+#### Frontend:
+- **Component-based architecture**
+- **Custom hooks** for shared logic (e.g., `useItems`, `useStores`, `useCart`)
+- **Context providers** for global state
+
+### Project Structure
+```
+/Cart
+├── backend/              # ASP.NET Core API
+│   ├── Controllers/      # API endpoints
+│   ├── Models/           # EF Core entities
+│   ├── DTOs/             # API contracts
+│   ├── Services/         # Business logic
+│   ├── Repositories/     # Data access
+│   └── Data/             # DbContext
+├── frontend/             # React SPA
+│   ├── src/
+│   │   ├── components/   # React components
+│   │   ├── hooks/        # Custom hooks
+│   │   ├── services/     # API client (Axios)
+│   │   └── context/      # Global state
+├── Dockerfile            # Multi-stage build
+├── docker-compose.yml    # Local deployment
+└── .github/
+    └── workflows/        # CI/CD
+```
+
+### Docker Strategy
+- **Multi-stage Dockerfile** (build stage + runtime stage)
+- Build images: `mcr.microsoft.com/dotnet/sdk:8.0` and `node:20`
+- Runtime image: `mcr.microsoft.com/dotnet/aspnet:8.0`
+- Multi-platform builds via Docker Buildx (`linux/amd64`, `linux/arm64`)
+- Volume mounts for SQLite DB file and optional configuration JSON
+- Frontend assets served by ASP.NET Core in production build
+
+### CI/CD Strategy
+- **GitHub Actions** workflow
+- Build multi-architecture images using Buildx
+- Push to Docker registry with semantic versioning tags
+- Automated builds on push to main branch
+
+### Database Migration Strategy
+- EF Core migrations created during development: `dotnet ef migrations add <name>`
+- Migrations auto-applied on application startup using `db.Database.Migrate()`
+- Migration history tracked automatically by EF Core
+- SQLite database file persists via Docker volume mount
+- No manual migration steps required for deployments
+
+### API Design
+REST endpoints following RESTful conventions:
+- `GET/POST/PUT/DELETE /api/items` - Item dictionary management
+- `GET/POST/PUT/DELETE /api/stores` - Store management
+- `GET/POST/PUT /api/stores/{id}/aisles` - Aisle/category mappings per store
+- `GET/POST/DELETE /api/list/items` - Shopping list operations
+- `PUT /api/list/items/{id}/retrieved` - Mark items as retrieved
