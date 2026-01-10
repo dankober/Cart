@@ -17,6 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B2C3D4E5-F
 		REQUIREMENTS.md = REQUIREMENTS.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{C3D4E5F6-A7B8-4C5D-9E0F-1A2B3C4D5E6F}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Api", "src\Cart.Api\Cart.Api.csproj", "{EDCB4CA4-DC6D-4C14-A78D-7FF27D53137C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Api.Tests", "src\Cart.Api.Tests\Cart.Api.Tests.csproj", "{EF94A918-BC24-4199-A266-7C1F3EBE2B29}"
