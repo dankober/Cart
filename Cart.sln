@@ -5,6 +5,18 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{80390E4C-C56B-473A-BBA4-6B1150AF8E4B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1B2C3D4-E5F6-4A5B-9C8D-7E6F5A4B3C2D}"
+	ProjectSection(SolutionItems) = preProject
+		.github/workflows/build.yml = .github/workflows/build.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B2C3D4E5-F6A7-4B5C-8D9E-0F1A2B3C4D5E}"
+	ProjectSection(SolutionItems) = preProject
+		CLAUDE.md = CLAUDE.md
+		README.md = README.md
+		REQUIREMENTS.md = REQUIREMENTS.md
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Api", "src\Cart.Api\Cart.Api.csproj", "{EDCB4CA4-DC6D-4C14-A78D-7FF27D53137C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cart.Api.Tests", "src\Cart.Api.Tests\Cart.Api.Tests.csproj", "{EF94A918-BC24-4199-A266-7C1F3EBE2B29}"
