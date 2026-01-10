@@ -2,5 +2,5 @@ namespace Cart.Api.Services;
 
 public interface IHelloService
 {
-    string GetGreeting();
+    string GetGreeting(string? name = null);
 }

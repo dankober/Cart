@@ -15,9 +15,9 @@ public class HelloController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult Get()
+    public IActionResult Get([FromQuery] string? name = null)
     {
-        var message = _helloService.GetGreeting();
+        var message = _helloService.GetGreeting(name);
         return Ok(new { message });
     }
 }
