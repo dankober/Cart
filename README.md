@@ -47,26 +47,30 @@ docker compose up --build
 
 The application will be available at http://localhost:7100
 
-### Example Docker Compose Configuration
+### Using the Docker Hub Image
+
+Create a `docker-compose.yml` file:
 
 ```yaml
 services:
   cart:
-    image: cart:latest
-    # Or build from source:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    image: dankober/cart:latest
     ports:
       - "7100:7100"
     volumes:
-      # Persist SQLite database on host
       - ./data:/app/data
     environment:
-      # Database path inside container
       - Database__Path=/app/data/cart.db
     restart: unless-stopped
 ```
+
+Then run:
+
+```bash
+docker compose up -d
+```
+
+The application will be available at http://localhost:7100
 
 ### Environment Variables
 
