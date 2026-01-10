@@ -1,35 +1,12 @@
 using Cart.Api.Data;
-using Cart.Api.Services;
-using Microsoft.EntityFrameworkCore;
+using Cart.Api.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "Cart API", Version = "v1" });
-});
-
-// Register application services
-builder.Services.AddScoped<IHelloService, HelloService>();
-
-// Configure SQLite
-var dbPath = builder.Configuration.GetValue<string>("Database:Path") ?? "cart.db";
-builder.Services.AddDbContext<CartDbContext>(options =>
-    options.UseSqlite($"Data Source={dbPath}"));
-
-// Configure CORS for development
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.WithOrigins("http://localhost:7101")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
+builder.Services.AddPresentation();
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // Configure Kestrel to use port 7100
 builder.WebHost.ConfigureKestrel(options =>
