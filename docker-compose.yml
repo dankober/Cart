@@ -1,0 +1,12 @@
+services:
+  cart:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7100:7100"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - Database__Path=/app/data/cart.db
+    restart: unless-stopped
