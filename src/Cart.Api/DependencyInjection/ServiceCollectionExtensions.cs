@@ -10,12 +10,18 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IHelloService, HelloService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IGroceryService, GroceryService>();
+        services.AddScoped<IItemService, ItemService>();
+        services.AddScoped<IStoreService, StoreService>();
+        services.AddScoped<IAisleService, AisleService>();
+        services.AddScoped<ICategoryAisleMappingService, CategoryAisleMappingService>();
         return services;
     }
 
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var dbPath = configuration.GetValue<string>("Database:Path") ?? "cart.db";
+        var dbPath = configuration.GetValue<string>("Database:Path") ?? "data/cart.db";
         services.AddDbContext<CartDbContext>(options =>
             options.UseSqlite($"Data Source={dbPath}",
                 b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName)));
@@ -24,6 +30,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
+        services.AddRouting(options => options.LowercaseUrls = true);
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
