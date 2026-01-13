@@ -1,4 +1,3 @@
-using Cart.Api.Data;
 using Cart.Api.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,12 +15,8 @@ builder.WebHost.ConfigureKestrel(options =>
 
 var app = builder.Build();
 
-// Ensure database is created
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<CartDbContext>();
-    db.Database.EnsureCreated();
-}
+// Update database to current version
+app.ApplyMigrations();
 
 // Enable Swagger
 app.UseSwagger();
