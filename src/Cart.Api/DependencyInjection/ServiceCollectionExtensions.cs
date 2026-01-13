@@ -1,3 +1,4 @@
+using System.Reflection;
 using Cart.Api.Data;
 using Cart.Api.Services;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,8 @@ public static class ServiceCollectionExtensions
     {
         var dbPath = configuration.GetValue<string>("Database:Path") ?? "cart.db";
         services.AddDbContext<CartDbContext>(options =>
-            options.UseSqlite($"Data Source={dbPath}"));
+            options.UseSqlite($"Data Source={dbPath}",
+                b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName)));
         return services;
     }
 
