@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B2C3D4E5-F
 		CLAUDE.md = CLAUDE.md
 		README.md = README.md
 		REQUIREMENTS.md = REQUIREMENTS.md
+		SCHEMA.md = SCHEMA.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{C3D4E5F6-A7B8-4C5D-9E0F-1A2B3C4D5E6F}"
